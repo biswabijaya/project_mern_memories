@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "mern-fs",
+    "production": "mern-fs"
+  }
+}

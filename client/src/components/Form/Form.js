@@ -1,3 +1,6 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-alert */
+/* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,12 +26,23 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let error = 0;
 
-    if (currentId === 0) {
-      dispatch(createPost(postData));
-      clear();
-    } else {
-      dispatch(updatePost(currentId, postData));
+    for (const key in postData) {
+      if (Object.hasOwnProperty.call(postData, key)) {
+        if (postData[key] === '' || postData[key].length === 0) {
+          alert(`${key} can't be empty`);
+          error++; break;
+        }
+      }
+    }
+
+    if (!error) {
+      if (currentId === 0) {
+        dispatch(createPost(postData));
+      } else {
+        dispatch(updatePost(currentId, postData));
+      }
       clear();
     }
   };
